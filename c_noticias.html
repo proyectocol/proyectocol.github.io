@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Administración — Valle de Turín</title>
+    <link rel="icon" href="a_logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- ======= INICIO CSS ======= -->
+
+    <style>
+        /* ======= CSS VARIABLES ======= */
+        :root {
+            --color-principal: #2d89ef;
+            --color-secundario: #f4f6f8;
+            --color-texto: #333;
+            --color-blanco: #fff;
+            --color-footer: #1e1e1e;
+            --muted: #6b7280;
+            --transition: .3s ease;
+            --radius: 14px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--color-secundario);
+            color: var(--color-texto);
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--color-principal);
+        }
+
+        /* ======= CSS ENCABEZADO ======= */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--color-blanco);
+            padding: 1px 60px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            border-bottom: 5px solid #38bdf8;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                margin-left: 20px;
+            }
+        }
+
+        .logo img {
+            height: 100px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 60px;
+            list-style: none;
+        }
+
+        nav a {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-texto);
+            padding: 5px 0;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--color-principal);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ======= CSS MENÚ RESPONSIVE ======= */
+        .menu-toggle {
+            display: none;
+            position: relative;
+            width: 35px;
+            height: 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 999;
+        }
+
+        .menu-toggle span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--color-texto);
+            border-radius: 5px;
+            opacity: 1;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span:nth-child(1) {
+            top: 0;
+        }
+
+        .menu-toggle span:nth-child(2) {
+            top: 12px;
+        }
+
+        .menu-toggle span:nth-child(3) {
+            top: 24px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 12px;
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--color-blanco);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 25px;
+                list-style: none;
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s ease;
+                z-index: 998;
+            }
+
+            nav ul.mostrar {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            nav ul li a {
+                font-size: 1.3rem;
+                color: var(--color-texto);
+                text-decoration: none;
+            }
+        }
+
+        /* ======= CSS NOTICIAS ======= */
+        #noticias {
+            padding: 70px 20px;
+            background: linear-gradient(135deg, #eef7ff, #f7fbff);
+        }
+
+        .titulo-seccion {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #1e40af;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .news-card {
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .news-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+        }
+
+        .news-img {
+            height: 160px;
+            background: #dbeafe;
+        }
+
+        .news-img img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .news-info {
+            padding: 20px;
+        }
+
+        .news-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+
+        .news-info p {
+            color: #475569;
+            margin-bottom: 18px;
+            line-height: 1.4rem;
+        }
+
+        .btn-pdf {
+            display: inline-block;
+            background: #0ea5e9;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .btn-pdf:hover {
+            background: #0284c7;
+        }
+
+        @media (max-width: 900px) {
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ======= CSS FOOTER ======= */
+        footer {
+            background: var(--color-footer);
+            color: var(--color-blanco);
+            padding: 40px 20px 10px;
+        }
+
+        .footer-contenedor {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .footer-logo img {
+            width: 130px;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 15px;
+            border-left: 4px solid var(--color-principal);
+            padding-left: 10px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin: 8px 0;
+        }
+
+        .footer-col a {
+            color: #e5e7eb;
+            text-decoration: none;
+        }
+
+        .footer-copy {
+            text-align: center;
+            margin-top: 30px;
+            border-top: 1px solid #4b5563;
+            padding-top: 15px;
+            font-size: .9rem;
+        }
+    </style>
+    <!-- ======= FIN CSS ======= -->
+
+</head>
+
+<!-- ======= INICIO HTML ======= -->
+
+<body>
+    <!-- ======= HTML ENCABEZADO ======= -->
+    <header>
+        <div class="logo">
+            <img src="a_logo.png" alt="Logo">
+        </div>
+
+        <button class="menu-toggle" id="menu-toggle">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="b_administracion.html">Administración</a></li>
+                <li><a href="c_noticias.html">Noticias</a></li>
+                <li><a href="d_contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <!-- ======= HTML NOTICIAS ======= -->
+    <section id="noticias">
+        <h2 class="titulo-seccion">Noticias Recientes</h2>
+        <div class="news-grid">
+            <div class="news-card seccion">
+                <div class="news-img">
+                    <img src="https://images.pexels.com/photos/4240497/pexels-photo-4240497.jpeg" alt="Mantenimiento">
+                </div>
+                <div class="news-info">
+                    <h3>Mantenimiento General</h3>
+                    <p>El próximo sábado se realizará mantenimiento preventivo en las áreas comunes del conjunto.</p>
+                    <a href="c_pdfhoja.pdf" class="btn-pdf" target="_blank">Más información</a>
+                </div>
+            </div>
+            <div class="news-card seccion">
+                <div class="news-img">
+                    <img src="https://images.pexels.com/photos/279719/pexels-photo-279719.jpeg" alt="Seguridad">
+                </div>
+                <div class="news-info">
+                    <h3>Actualización de Seguridad</h3>
+                    <p>Se instalaron nuevas cámaras de vigilancia en las torres principales.</p>
+                    <a href="c_pdfhoja.pdf" class="btn-pdf" target="_blank">Más información</a>
+                </div>
+            </div>
+            <div class="news-card seccion">
+                <div class="news-img">
+                    <img src="https://images.pexels.com/photos/4386366/pexels-photo-4386366.jpeg" alt="Administración">
+                </div>
+                <div class="news-info">
+                    <h3>Pago de Administración</h3>
+                    <p>Recuerda que la cuota de administración vence el día 15 de cada mes.</p>
+                    <a href="c_pdfhoja.pdf" class="btn-pdf" target="_blank">Más información</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= HTML FOOTER ======= -->
+    <footer>
+        <div class="footer-contenedor">
+            <div class="footer-logo">
+                <img src="a_logo.png" alt="Logo">
+                <p>Conjunto Residencial Valle de Turín</p>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="b_administracion.html">Administración</a></li>
+                    <li><a href="c_noticias.html">Noticias</a></li>
+                    <li><a href="d_contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><i class="fa-solid fa-envelope"></i> info@valledeturin.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copy">
+            © 2025 Conjunto Residencial Valle de Turín — Desarrollado por <strong>AMPRCodeDev</strong>
+        </div>
+    </footer>
+
+    <!-- ======= FIN HTML  ======= -->
+
+    <!-- ======= INICIO JS ======= -->
+    <script>
+        const toggle = document.getElementById('menu-toggle');
+        const navMenu = document.querySelector('nav ul');
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+            navMenu.classList.toggle('mostrar');
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: "0px 0px -100px 0px",
+                threshold: 0.2
+            };
+
+            const aparecer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll(".seccion").forEach(sec => aparecer.observe(sec));
+        });
+    </script>
+    <!-- ======= FIN JS ======= -->
+
+</body>
+
+</html>

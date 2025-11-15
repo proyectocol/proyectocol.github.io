@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Administración — Valle de Turín</title>
+    <link rel="icon" href="a_logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- ======= INICIO CSS ======= -->
+
+    <style>
+        /* ======= CSS VARIABLES ======= */
+        :root {
+            --color-principal: #2d89ef;
+            --color-secundario: #f4f6f8;
+            --color-texto: #333;
+            --color-blanco: #fff;
+            --color-footer: #1e1e1e;
+            --muted: #6b7280;
+            --transition: .3s ease;
+            --radius: 14px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--color-secundario);
+            color: var(--color-texto);
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--color-principal);
+        }
+
+        /* ======= CSS ENCABEZADO ======= */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--color-blanco);
+            padding: 1px 60px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            border-bottom: 5px solid #38bdf8;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                margin-left: 20px;
+            }
+        }
+
+        .logo img {
+            height: 100px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 60px;
+            list-style: none;
+        }
+
+        nav a {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-texto);
+            padding: 5px 0;
+            position: relative;
+            text-decoration: none;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--color-principal);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ======= CSS MENÚ RESPONSIVE ======= */
+        .menu-toggle {
+            display: none;
+            position: relative;
+            width: 35px;
+            height: 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 999;
+        }
+
+        .menu-toggle span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--color-texto);
+            border-radius: 5px;
+            opacity: 1;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span:nth-child(1) {
+            top: 0;
+        }
+
+        .menu-toggle span:nth-child(2) {
+            top: 12px;
+        }
+
+        .menu-toggle span:nth-child(3) {
+            top: 24px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 12px;
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--color-blanco);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 25px;
+                list-style: none;
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s ease;
+                z-index: 998;
+            }
+
+            nav ul.mostrar {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            nav ul li a {
+                font-size: 1.3rem;
+                color: var(--color-texto);
+                text-decoration: none;
+            }
+        }
+
+        /* ======= CSS ADMINISTRACION ======= */
+        #intro {
+            padding: 60px 20px;
+        }
+
+        .card-intro {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+
+            background: linear-gradient(135deg, #ffffff, #f7fbff);
+            padding: 45px;
+            border-radius: 18px;
+
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            border: 2px solid rgba(56, 128, 255, 0.15);
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .card-intro:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+        }
+
+        .intro-img img {
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            border: 3px solid rgba(0, 122, 255, 0.25);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .intro-text {
+            flex: 1;
+        }
+
+        .intro-text h1 {
+            font-size: 2.4rem;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+
+        .intro-text .muted {
+            color: #5b5b5b;
+            font-weight: 600;
+        }
+
+        .intro-text p {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .intro-text ul {
+            padding-left: 20px;
+        }
+
+        .intro-text li {
+            margin-bottom: 6px;
+            color: #003e7e;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .intro-text li::before {
+            content: "✔";
+            color: #007bff;
+            font-size: 0.9rem;
+            margin-right: 8px;
+        }
+
+        li::marker {
+            content: "";
+        }
+
+        @media (max-width: 820px) {
+            .card-intro {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .intro-text ul {
+                text-align: left;
+                margin: auto;
+                max-width: 260px;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .intro-img {
+                display: none;
+            }
+        }
+
+        /* ======= CSS PAGO ADMINISTRACION ======= */
+        #pago-admin {
+            background: linear-gradient(135deg, #ddfdff81 0%, #66a6ff60 100%);
+            padding: 100px 20px;
+            /* padding interno */
+            width: 100%;
+            /* ocupa todo el ancho */
+
+        }
+
+        #pago-admin h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #000000;
+        }
+
+        .descripcion-pago {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            color: #555;
+            font-size: 1.05rem;
+        }
+
+        .pago-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+        }
+
+        .pago-digital {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.10);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .boton-pse {
+            background: linear-gradient(45deg, #007bff, #0058d1);
+            padding: 15px 25px;
+            color: #fff;
+            border-radius: 10px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1.05rem;
+            transition: .3s ease;
+            display: inline-block;
+        }
+
+        .boton-pse:hover {
+            transform: translateY(-3px);
+            opacity: 0.9;
+        }
+
+        .video-card h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .video-card iframe {
+            width: 100%;
+            height: 260px;
+            border-radius: 12px;
+            border: none;
+        }
+
+        .pago-presencial .presencial-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.10);
+        }
+
+        .pago-presencial h3 {
+            margin-bottom: 10px;
+            color: var(--color-principal);
+        }
+
+        .pago-presencial p {
+            margin-bottom: 12px;
+            color: #444;
+        }
+
+        .mapa iframe {
+            width: 100%;
+            height: 260px;
+            border-radius: 12px !important;
+            border: none;
+        }
+
+        @media (max-width: 900px) {
+
+            .pago-grid,
+            .pdf-link {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            #pago-admin {
+                padding: 40px 15px;
+            }
+
+            .pago-digital,
+            .presencial-card,
+            .pdf-link {
+                padding: 20px;
+            }
+
+            .video-card iframe,
+            .mapa iframe {
+                height: 230px;
+            }
+        }
+
+        /* ======= CSS PRESTADORES DE SERVICIOS ======= */
+        #pdf {
+            padding: 60px 20px;
+        }
+
+        h2 {
+            color: black;
+        }
+
+        .pdf-link {
+            display: inline-block;
+            background: #0ea5e9;
+            padding: 12px 22px;
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-link {
+                padding: 10px 18px;
+                font-size: 14px;
+                max-width: 90%;
+            }
+        }
+
+        /* ======= CSS HORARIOS DE ATENCIÓN ======= */
+        #horario {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #ddfdff81 0%, #66a6ff60 100%);
+        }
+
+        .hours {
+            padding: 30px;
+            max-width: 700px;
+            margin: auto;
+            border-radius: 20px;
+            background: #ffffff;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hours:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .line {
+            padding: 15px 20px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(120deg, #f0f8ff, #e3f2fd);
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .line:hover {
+            background: linear-gradient(120deg, #dbeafe, #bfdbfe);
+            transform: translateX(5px);
+        }
+
+        .line span:first-child {
+            font-weight: 600;
+            color: #1e3a8a;
+            font-size: 1rem;
+        }
+
+        .line span.muted {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 600px) {
+            .hours {
+                padding: 20px;
+            }
+
+            .line {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+                padding: 12px 15px;
+            }
+        }
+
+        /* ======= CSS EQUIPO DE ADMINISTRACIÓN ======= */
+        #grupo {
+            padding: 60px 20px;
+
+        }
+
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .person {
+            background: linear-gradient(145deg, #ffffff, #f0f8ff);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .person:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #89f7fe, #66a6ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .person h4 {
+            font-size: 1.1rem;
+            color: #1e3a8a;
+            margin-bottom: 5px;
+        }
+
+        .person p.muted {
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin: 2px 0;
+        }
+
+        @media (max-width: 600px) {
+            .person {
+                padding: 15px;
+            }
+
+            .avatar {
+                width: 70px;
+                height: 70px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* ======= CSS FOOTER ======= */
+        footer {
+            background: var(--color-footer);
+            color: var(--color-blanco);
+            padding: 40px 20px 10px;
+        }
+
+        .footer-contenedor {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .footer-logo img {
+            width: 130px;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 15px;
+            border-left: 4px solid var(--color-principal);
+            padding-left: 10px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin: 8px 0;
+        }
+
+        .footer-col a {
+            color: #e5e7eb;
+            text-decoration: none;
+        }
+
+        .footer-copy {
+            text-align: center;
+            margin-top: 30px;
+            border-top: 1px solid #4b5563;
+            padding-top: 15px;
+            font-size: .9rem;
+        }
+    </style>
+    <!-- ======= FIN CSS ======= -->
+
+</head>
+
+<!-- ======= INICIO HTML ======= -->
+
+<body>
+    <!-- ======= HTML ENCABEZADO ======= -->
+    <header>
+        <div class="logo">
+            <img src="a_logo.png" alt="Logo">
+        </div>
+
+        <button class="menu-toggle" id="menu-toggle">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="b_administracion.html">Administración</a></li>
+                <li><a href="c_noticias.html">Noticias</a></li>
+                <li><a href="d_contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <!-- ======= HTML ADMINISTRACION ======= -->
+    <main>
+        <section id="intro">
+            <div class="card-intro">
+
+                <div class="intro-img">
+                    <img src="b_administracion.jpeg" alt="Administración Valle de Turín">
+                </div>
+
+                <div class="intro-text">
+                    <h1>Administración</h1>
+                    <p>
+                        La administración del Conjunto Residencial Valle de Turín facilita el manejo apropiado de las
+                        actividades y recursos de la copropiedad, garantizando un ambiente seguro y el cumplimiento del
+                        reglamento interno.
+                    </p>
+
+                    <strong>Funciones principales:</strong>
+                    <ul>
+                        <li>Gestión administrativa y financiera</li>
+                        <li>Mantenimiento de zonas comunes</li>
+                        <li>Atención a solicitudes y quejas</li>
+                        <li>Coordinación con contratistas</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ======= HTML PAGO ADMINISTRACION ======= -->
+        <section id="pago-admin">
+            <h2>Servicios Prestados por Administración</h2>
+            <p class="descripcion-pago">
+                En Valle de Turín puedes realizar el pago de tu cuota de administración de dos formas:
+                <strong>Digital</strong> a través de PSE y <strong>Presencial</strong> en la oficina de administración.
+            </p>
+            <div class="pago-grid">
+                <div class="pago-digital">
+                    <a href="https://www.servicioscoonfie.com/ModuloPse/convenio.php" target="_blank" class="boton-pse">
+                        Pagar Administración vía PSE
+                    </a>
+
+                    <div class="video-card">
+                        <h3>Cómo realizar tu pago digital</h3>
+                        <iframe src="https://www.youtube.com/embed/TU_VIDEO" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="pago-presencial">
+                    <div class="presencial-card">
+                        <h3>Pago Presencial</h3>
+
+                        <p><strong>Dirección:</strong><br>
+                            C.C. Unicentro - Segundo Piso - local 211<br>
+                            Lunes a Viernes<br>
+                            8:00 a.m – 12:00 m.<br>
+                            3:00 p.m. – 5:30 p.m.<br>
+                            Sábados<br>
+                            9:00 am a 12:30 m.</p>
+
+                        <div class="mapa">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127509.6295854234!2d-75.34970364179686!3d2.9093132000000246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3b738e2b1c70c7%3A0xd2ba2323b32eb436!2sCoonfie%20Unicentro!5e0!3m2!1ses!2sco!4v1763167233986!5m2!1ses!2sco"
+                                width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======= HTML PRESTADORES DE SERVICIOS ======= -->
+        <section id="pdf">
+            <h2>Servicios Prestados por Contratistas</h2>
+
+            <p class="descripcion-pago">
+                Las empresas y personas que se han comprometido con nuestro conjunto a desempeñar los trabajos
+                requeridos para el funcionamiento y mantenimiento de nuestras zonas comunes </p>
+
+            <a href="c_pdfhoja.pdf" class="pdf-link" target="_blank">
+                📄 Ver PDF de servicios contratados
+            </a>
+        </section>
+
+        <!-- ======= HTML HORARIOS DE ATENCIÓN ======= -->
+        <section id="horario">
+            <h2>Horarios de Oficina</h2>
+
+            <div class="hours">
+                <div class="line">
+                    <span>Lunes</span>
+                    <span class="muted">8:30 AM – 1:00 PM | 2:00 PM – 6:30 PM</span>
+                </div>
+                <div class="line">
+                    <span>Martes</span>
+                    <span class="muted">8:30 AM – 1:00 PM | 2:00 PM – 6:30 PM</span>
+                </div>
+                <div class="line">
+                    <span>Miércoles</span>
+                    <span class="muted">8:30 AM – 1:00 PM | 2:00 PM – 6:30 PM</span>
+                </div>
+                <div class="line">
+                    <span>Jueves</span>
+                    <span class="muted">8:30 AM – 1:00 PM | 2:00 PM – 6:30 PM</span>
+                </div>
+                <div class="line">
+                    <span>Viernes</span>
+                    <span class="muted">8:30 AM – 1:00 PM | 2:00 PM – 6:30 PM</span>
+                </div>
+                <div class="line">
+                    <span>Fines de Semana</span>
+                    <span class="muted">Cerrado</span>
+                </div>
+        </section>
+
+        <!-- ======= HTML EQUIPO DE ADMINISTRACIÓN ======= -->
+        <section id="grupo">
+            <h2>Grupo de Administración</h2>
+            <div class="team">
+                <div class="person">
+                    <div class="avatar">ML</div>
+                    <div>
+                        <h4>María López</h4>
+                        <p class="muted">Administradora</p>
+                        <p class="muted">admin@valledeturin.com</p>
+                    </div>
+                </div>
+                <div class="person">
+                    <div class="avatar">PC</div>
+                    <div>
+                        <h4>Pedro Camacho</h4>
+                        <p class="muted">Contador</p>
+                        <p class="muted">contador@valledeturin.com</p>
+                    </div>
+                </div>
+                <div class="person">
+                    <div class="avatar">AM</div>
+                    <div>
+                        <h4>Ana Martínez</h4>
+                        <p class="muted">Auxiliar administrativa</p>
+                        <p class="muted">auxiliar1@valledeturin.com</p>
+                    </div>
+                </div>
+                <div class="person">
+                    <div class="avatar">JR</div>
+                    <div>
+                        <h4>Julio Ramírez</h4>
+                        <p class="muted">Atención al residente</p>
+                        <p class="muted">atencion@valledeturin.com</p>
+                    </div>
+                </div>
+                <div class="person">
+                    <div class="avatar">SG</div>
+                    <div>
+                        <h4>Sofía Gómez</h4>
+                        <p class="muted">Apoyo administrativo</p>
+                        <p class="muted">apoyo@valledeturin.com</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======= HTML FOOTER ======= -->
+    <footer>
+        <div class="footer-contenedor">
+            <div class="footer-logo">
+                <img src="a_logo.png" alt="Logo">
+                <p>Conjunto Residencial Valle de Turín</p>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="b_administracion.html">Administración</a></li>
+                    <li><a href="c_noticias.html">Noticias</a></li>
+                    <li><a href="d_contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><i class="fa-solid fa-envelope"></i> info@valledeturin.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copy">
+            © 2025 Conjunto Residencial Valle de Turín — Desarrollado por <strong>AMPRCodeDev</strong>
+        </div>
+    </footer>
+
+    <!-- ======= FIN HTML  ======= -->
+
+    <!-- ======= INICIO JS ======= -->
+    <script>
+        const toggle = document.getElementById('menu-toggle');
+        const navMenu = document.querySelector('nav ul');
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+            navMenu.classList.toggle('mostrar');
+        });
+    </script>
+
+    <!-- ======= FIN JS ======= -->
+
+</body>
+
+</html>

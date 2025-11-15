@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conjunto Residencial Valle de Turín</title>
+    <link rel="icon" href="a_logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- ======= INICIO CSS ======= -->
+
+    <style>
+        /* ======= CSS COOKIES ======= */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            padding: 20px 30px;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            font-size: 1rem;
+            border-top: 1px solid #eaeaea;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .cookie-banner.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .cookie-banner p {
+            margin: 0;
+            text-align: center;
+            max-width: 800px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cookie-banner button {
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: 0.25s ease;
+        }
+
+        .cookie-accept {
+            background: var(--color-principal);
+            color: #fff;
+        }
+
+        .cookie-accept:hover {
+            opacity: 0.85;
+        }
+
+        @media (max-width: 600px) {
+            .cookie-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .cookie-banner button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* ======= VARIABLES ======= */
+        :root {
+            --color-principal: #2d89ef;
+            --color-secundario: #f4f6f8;
+            --color-texto: #333;
+            --color-blanco: #fff;
+            --color-footer: #1e1e1e;
+            --transicion: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--color-secundario);
+            color: var(--color-texto);
+            scroll-behavior: smooth;
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--color-texto);
+        }
+
+        .contenedor {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #ffffff;
+            font-weight: 8 00;
+        }
+
+
+        /* ======= CSS ENCABEZADO ======= */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--color-blanco);
+            padding: 1px 60px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            border-bottom: 5px solid #38bdf8;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                margin-left: 20px;
+            }
+        }
+
+        .logo img {
+            height: 100px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 60px;
+            list-style: none;
+        }
+
+        nav a {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-texto);
+            padding: 5px 0;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--color-principal);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ======= CSS MENÚ RESPONSIVE ======= */
+        .menu-toggle {
+            display: none;
+            position: relative;
+            width: 35px;
+            height: 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 999;
+        }
+
+        .menu-toggle span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--color-texto);
+            border-radius: 5px;
+            opacity: 1;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span:nth-child(1) {
+            top: 0;
+        }
+
+        .menu-toggle span:nth-child(2) {
+            top: 12px;
+        }
+
+        .menu-toggle span:nth-child(3) {
+            top: 24px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 12px;
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--color-blanco);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 25px;
+                list-style: none;
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s ease;
+                z-index: 998;
+            }
+
+            nav ul.mostrar {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            nav ul li a {
+                font-size: 1.3rem;
+                color: var(--color-texto);
+            }
+        }
+
+        /* ======= CSS BIENVENIDOS ======= */
+        .hero {
+            width: 100vw;
+            max-width: 100%;
+            position: relative;
+            height: 100vh;
+            min-height: 500px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--color-blanco);
+        }
+
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-slider img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hero-slider img.active {
+            opacity: 1;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        .hero-content {
+            margin-top: 320px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.445);
+            padding: 10px -2px;
+            width: 70%;
+            border-radius: 20px;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(2px);
+            box-shadow: 0 8px 55px rgba(0, 0, 0, 0.559);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .hero-content:hover {
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .hero-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            /* Color general del texto */
+
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .verde {
+            font-weight: 700;
+            background: linear-gradient(90deg, #686aff, #00d9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .blanco {
+            color: #f9f9f9;
+            font-weight: 700;
+        }
+
+        .azul {
+            font-weight: 700;
+            background: linear-gradient(90deg, #1aff00, #d4ff00db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 70vh;
+            }
+
+            .hero-content h2 {
+                font-size: 1.6rem;
+            }
+
+            .hero-content p {
+                font-size: 0.95rem;
+            }
+
+            .hero-content {
+                padding: 20px;
+                width: 90%;
+            }
+        }
+
+        /* ======= CSS PRESENTACIÓN ======= */
+        section {
+            padding: 80px 20px;
+            max-width: 2100px;
+            margin: auto;
+        }
+
+        .presentacion {
+            background-color: #beffd42e;
+            padding: 80px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .presentacion .card {
+            background: #ffffff;
+            padding: 40px 30px;
+            max-width: 900px;
+            width: 100%;
+            border-radius: 18px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .presentacion h2 {
+            color: var(--color-principal);
+            margin-bottom: 15px;
+        }
+
+        .presentacion p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        /* ======= CSS SERVICIOS ======= */
+        #servicios {
+            scroll-margin-top: 120px;
+        }
+
+        .servicios-section {
+            padding: 80px 40px;
+            background: #feffce4a;
+            text-align: center;
+        }
+
+        .servicios-section h2 {
+            font-size: 2.2rem;
+            color: #1e293b;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .servicios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .servicio {
+            background-color: #ffffff;
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .servicio:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .servicio i {
+            font-size: 3rem;
+            color: #0ea5e9;
+            /* azul principal */
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .servicio:hover i {
+            transform: scale(1.2);
+        }
+
+        .servicio h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+
+        .servicio p {
+            font-size: 0.95rem;
+            color: #64748b;
+        }
+
+        .servicio {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .servicio.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+
+        /* ======= CSS UBICACIÓN ======= */
+        .ubicacion-section {
+            padding: 80px 40px;
+            background: #bde9ff51;
+            text-align: center;
+        }
+
+        .ubicacion-section h2 {
+            font-size: 2.3rem;
+            color: var(--color-principal);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .ubicacion-contenedor {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .ubicacion-texto {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            text-align: left;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .ubicacion-texto:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .ubicacion-texto i {
+            font-size: 2rem;
+            color: var(--color-principal);
+            margin-bottom: 10px;
+        }
+
+        .ubicacion-texto h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .ubicacion-texto p {
+            color: #64748b;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .ubicacion-texto ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ubicacion-texto ul li {
+            margin: 10px 0;
+            font-size: 1rem;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ubicacion-texto ul li i {
+            color: #0ea5e9;
+        }
+
+        .ubicacion-mapa iframe {
+            width: 100%;
+            height: 350px;
+            border: 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ======= CSS RESPONSIVE ======= */
+        @media (max-width: 900px) {
+            .ubicacion-contenedor {
+                grid-template-columns: 1fr;
+            }
+
+            .ubicacion-texto {
+                text-align: center;
+            }
+
+            .ubicacion-texto ul li {
+                justify-content: center;
+            }
+
+            .ubicacion-mapa iframe {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .ubicacion-section {
+                padding: 60px 20px;
+            }
+
+            .ubicacion-texto {
+                padding: 25px;
+            }
+
+            .ubicacion-texto h3 {
+                font-size: 1.3rem;
+            }
+
+            .ubicacion-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* ======= CSS BOTÓN ARRIBA ======= */
+        #btn-arriba {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--color-principal);
+            color: var(--color-blanco);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            display: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: var(--transicion);
+        }
+
+        #btn-arriba:hover {
+            transform: translateY(-5px);
+        }
+
+        section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ======= CSS FOOTER ======= */
+        footer {
+            background: var(--color-footer);
+            color: var(--color-blanco);
+            padding: 40px 20px 10px;
+        }
+
+        .footer-contenedor {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .footer-logo img {
+            width: 130px;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 15px;
+            border-left: 4px solid var(--color-principal);
+            padding-left: 10px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin: 8px 0;
+        }
+
+        .footer-col a {
+            color: #e5e7eb;
+            text-decoration: none;
+        }
+
+        .footer-copy {
+            text-align: center;
+            margin-top: 30px;
+            border-top: 1px solid #4b5563;
+            padding-top: 15px;
+            font-size: .9rem;
+        }
+    </style>
+
+    <!-- ======= FIN CSS ======= -->
+
+</head>
+
+<!-- ======= INICIO HTML ======= -->
+
+<body>
+    <!-- ======= HTML COOKIES ======= -->
+    <div class="cookie-banner" id="cookieBanner">
+        <p>Usamos cookies para mejorar tu experiencia y analizar el uso del sitio. ¿Aceptas nuestras políticas?</p>
+
+        <div class="cookie-buttons">
+            <button class="cookie-accept" onclick="hideCookies()">Aceptar</button>
+        </div>
+    </div>
+
+    <!-- ======= HTML ENCABEZADO ======= -->
+    <header>
+
+        <div class="logo">
+            <img src="a_logo.png" alt="Logo Valle de Turín">
+        </div>
+
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="b_administracion.html">Administración</a></li>
+                <li><a href="c_noticias.html">Noticias</a></li>
+                <li><a href="d_contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <!-- ======= HTML BIENVENIDOS ======= -->
+    <section id="inicio" class="hero">
+        <div class="hero-slider">
+            <img src="a_porteria.jpg" alt="Fachada Valle de Turín" class="active">
+            <img src="a_calle.jpg" alt="Zonas comunes Valle de Turín">
+            <img src="a_casa.jpg" alt="Parque Valle de Turín">
+            <img src="a_parqueadero.jpg" alt="Salón social Valle de Turín">
+            <img src="a_piscina.jpg" alt="Entrada Valle de Turín">
+        </div>
+        <div class="hero-content">
+            <h2>
+                Bienvenidos a
+                <span class="verde">Valle</span>
+                <span class="blanco">de</span>
+                <span class="azul">Turín</span>
+            </h2>
+            <p>Un lugar donde la tranquilidad, la seguridad y la convivencia son parte de cada día.</p>
+        </div>
+    </section>
+
+    <!-- ======= HTML PRESENTACIÓN ======= -->
+    <section class="presentacion">
+        <div class="card">
+            <h2>Nuestra Página Web</h2>
+            <p>Esta Página Web ha sido creada por la Administración, como medio de comunicación para informar
+                a toda la comunidad del conjunto residencial VALLE DE TURÍN, a través de publicaciones de la
+                Administración, el Consejo de Administración, el Comité de Convivencia y la Comunidad.</p>
+        </div>
+    </section>
+
+
+    <!-- ======= HTML SERVICIOS ======= -->
+    <section id="servicios" class="servicios-section">
+        <h2>Nuestros Servicios</h2>
+        <div class="servicios">
+            <div class="servicio">
+                <i class="fas fa-swimming-pool"></i>
+                <h3>Piscina</h3>
+                <p>Disfruta de una piscina moderna ideal para toda la familia.</p>
+            </div>
+            <div class="servicio">
+                <i class="fas fa-parking"></i>
+                <h3>Parqueadero</h3>
+                <p>Amplios espacios para residentes y visitantes con vigilancia 24/7.</p>
+            </div>
+            <div class="servicio">
+                <i class="fas fa-church"></i>
+                <h3>Capilla</h3>
+                <p>Un espacio de reflexión y encuentro espiritual para la comunidad.</p>
+            </div>
+            <div class="servicio">
+                <i class="fas fa-dumbbell"></i>
+                <h3>Gimnasio</h3>
+                <p>Equipado para tu bienestar físico y mental.</p>
+            </div>
+            <div class="servicio">
+                <i class="fas fa-users"></i>
+                <h3>Salones Sociales</h3>
+                <p>Dos salones perfectos para tus eventos familiares y reuniones.</p>
+            </div>
+            <div class="servicio">
+                <i class="fas fa-child"></i>
+                <h3>Área Infantil</h3>
+                <p>Zona segura y divertida para que los más pequeños disfruten al máximo.</p>
+            </div>
+            <div class="servicio">
+                <i class="fas fa-trash-alt"></i>
+                <h3>Shut de Basuras</h3>
+                <p>Sistema organizado y seguro para la disposición de residuos en cada torre.</p>
+            </div>
+            <div class="servicio">
+                <i class="fas fa-video"></i>
+                <h3>Cámaras de Vigilancia</h3>
+                <p>Monitoreo 24/7 para mayor seguridad en todo el conjunto residencial.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= HTML UBICACIÓN ======= -->
+    <section id="ubicacion" class="ubicacion-section">
+        <h2>Ubicación</h2>
+        <div class="ubicacion-contenedor">
+            <div class="ubicacion-texto">
+                <i class="fa-solid fa-location-dot"></i>
+                <h3>Conjunto Residencial Valle de Turín</h3>
+                <p>
+                    Nos encontramos en una zona tranquila y de fácil acceso, cerca de colegios y vías principales.
+                    Disfruta de un entorno seguro y con excelente conectividad.
+                </p>
+                <ul>
+                    <li><i class="fa-solid fa-bus"></i> Rutas de transporte cercanas</li>
+                    <li><i class="fa-solid fa-school"></i> Colegios y parques a menos de 5 minutos</li>
+                    <li><i class="fa-solid fa-store"></i> Centros comerciales y supermercados</li>
+                </ul>
+            </div>
+            <div class="ubicacion-mapa">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.7349342013104!2d-75.25722592494732!3d2.8925690970839297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3b73dbc272a4bf%3A0x8f67e09da27be4b8!2s%22Valle%20de%20Tur%C3%ADn%22%20Conjunto%20Residencial!5e0!3m2!1ses!2sco!4v1763079126160!5m2!1ses!2sco"
+                    width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= HTML FOOTER ======= -->
+    <footer>
+        <div class="footer-contenedor">
+            <div class="footer-logo">
+                <img src="a_logo.png" alt="Logo">
+                <p>Conjunto Residencial Valle de Turín</p>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="b_administracion.html">Administración</a></li>
+                    <li><a href="c_noticias.html">Noticias</a></li>
+                    <li><a href="d_contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><i class="fa-solid fa-envelope"></i> info@valledeturin.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copy">
+            © 2025 Conjunto Residencial Valle de Turín — Desarrollado por <strong>AMPRCodeDev</strong>
+        </div>
+    </footer>
+
+    <!-- ======= HTML BOTÓN ARRIBA ======= -->
+    <button id="btn-arriba" title="Volver arriba">↑</button>
+
+    <!-- ======= FIN HTML  ======= -->
+
+    <!-- ======= INICIO JS ======= -->
+    <script>
+        function hideCookies() {
+            document.getElementById("cookieBanner").classList.add("hidden");
+            localStorage.setItem("cookiesAceptadas", "true");
+        }
+
+        const btnArriba = document.getElementById('btn-arriba');
+        window.addEventListener('scroll', () => {
+            btnArriba.style.display = window.scrollY > 200 ? 'block' : 'none';
+        });
+        btnArriba.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        const secciones = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entradas, obs) => {
+            entradas.forEach(entrada => {
+                if (entrada.isIntersecting) {
+                    entrada.target.classList.add('visible');
+                    obs.unobserve(entrada.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        secciones.forEach(sec => observer.observe(sec));
+
+        const toggle = document.getElementById('menu-toggle');
+        const navMenu = document.querySelector('nav ul');
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+            navMenu.classList.toggle('mostrar');
+        });
+
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.hero-slider img');
+        function showNextSlide() {
+            slides[slideIndex].classList.remove('active');
+            slideIndex = (slideIndex + 1) % slides.length;
+            slides[slideIndex].classList.add('active');
+        }
+        setInterval(showNextSlide, 5000);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const servicios = document.querySelectorAll(".servicio");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            servicios.forEach(s => observer.observe(s));
+        });
+    </script>
+
+    <!-- ======= FIN JS ======= -->
+
+</body>
+
+</html>
